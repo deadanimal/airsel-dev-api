@@ -70,129 +70,138 @@ class WamsViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         if request_service_name == 'getEmployee':
             middleware_call = get_employee()
             # for single result only
-            json_response = {
-                'result': { k.replace('ouaf:', ''): v for k, v in middleware_call.items() }
-            }
+            # json_response = {
+            #     'result': { k.replace('ouaf:', ''): v for k, v in middleware_call.items() }
+            # }
+            json_response = middleware_call
 
         elif request_service_name == 'getWorkOrderActivity':
             middleware_call = get_workorderactivity()
             # for multiple results only
-            middleware_list = []
-            for item in middleware_call:
-                new_json = {}
-                for key in item:
-                    new_key = key.replace('ouaf:', '')
-                    new_json[new_key] = item[key]
-                middleware_list.append(new_json)
+            # middleware_list = []
+            # for item in middleware_call:
+            #     new_json = {}
+            #     for key in item:
+            #         new_key = key.replace('ouaf:', '')
+            #         new_json[new_key] = item[key]
+            #     middleware_list.append(new_json)
             
-            json_response = {
-                'result': middleware_list
-            }
+            # json_response = {
+            #     'result': middleware_list
+            # }
+            json_response = middleware_call
 
         elif request_service_name == 'getAssetSyncOutbound':
             middleware_call = get_assetsyncoutbound()
             
-            middleware_list = []
-            for item in middleware_call:
-                new_json = {}
-                for key in item:
-                    new_key = key.replace('ouaf:', '')
-                    new_json[new_key] = item[key]
-                middleware_list.append(new_json)
+            # middleware_list = []
+            # for item in middleware_call:
+            #     new_json = {}
+            #     for key in item:
+            #         new_key = key.replace('ouaf:', '')
+            #         new_json[new_key] = item[key]
+            #     middleware_list.append(new_json)
             
-            json_response = {
-                'result': middleware_list
-            }
+            # json_response = {
+            #     'result': middleware_list
+            # }
+            json_response = middleware_call
 
         elif request_service_name == 'getFailureProfile':
             middleware_call = get_failureprofile()
             
-            middleware_list = []
-            for item in middleware_call:
-                new_json = {}
-                for key in item:
-                    new_key = key.replace('ouaf:', '')
-                    new_json[new_key] = item[key]
-                middleware_list.append(new_json)
+            # middleware_list = []
+            # for item in middleware_call:
+            #     new_json = {}
+            #     for key in item:
+            #         new_key = key.replace('ouaf:', '')
+            #         new_json[new_key] = item[key]
+            #     middleware_list.append(new_json)
             
-            json_response = {
-                'result': middleware_list
-            }
+            # json_response = {
+            #     'result': middleware_list
+            # }
+            json_response = middleware_call
 
         elif request_service_name == 'getMeasurementType':
             middleware_call = get_measurementtype()
             
-            middleware_list = []
-            for item in middleware_call:
-                new_json = {}
-                for key in item:
-                    new_key = key.replace('ouaf:', '')
-                    new_json[new_key] = item[key]
-                middleware_list.append(new_json)
+            # middleware_list = []
+            # for item in middleware_call:
+            #     new_json = {}
+            #     for key in item:
+            #         new_key = key.replace('ouaf:', '')
+            #         new_json[new_key] = item[key]
+            #     middleware_list.append(new_json)
             
-            json_response = {
-                'result': middleware_list
-            }
+            # json_response = {
+            #     'result': middleware_list
+            # }
+            json_response = middleware_call
 
         elif request_service_name == 'getPlanner':
             middleware_call = get_planner()
 
-            middleware_list = []
-            for item in middleware_call:
-                new_json = {}
-                for key in item:
-                    new_key = key.replace('ouaf:', '')
-                    new_json[new_key] = item[key]
-                middleware_list.append(new_json)
+            # middleware_list = []
+            # for item in middleware_call:
+            #     new_json = {}
+            #     for key in item:
+            #         new_key = key.replace('ouaf:', '')
+            #         new_json[new_key] = item[key]
+            #     middleware_list.append(new_json)
             
-            json_response = {
-                'result': middleware_list
-            }
+            # json_response = {
+            #     'result': middleware_list
+            # }
+            json_response = middleware_call
 
         elif request_service_name == 'getAsset':
             middleware_call = get_asset()
             
-            middleware_list = []
-            for item in middleware_call:
-                new_json = {}
-                for key in item:
-                    new_key = key.replace('ouaf:', '')
-                    new_json[new_key] = item[key]
-                middleware_list.append(new_json)
+            # middleware_list = []
+            # for item in middleware_call:
+            #     new_json = {}
+            #     for key in item:
+            #         new_key = key.replace('ouaf:', '')
+            #         new_json[new_key] = item[key]
+            #     middleware_list.append(new_json)
             
-            json_response = {
-                'result': middleware_list
-            }
+            # json_response = {
+            #     'result': middleware_list
+            # }
+            json_response = middleware_call
 
         elif request_service_name == 'getAssetLocation':
             middleware_call = get_asset()
             
-            middleware_list = []
-            for item in middleware_call:
-                new_json = {}
-                for key in item:
-                    new_key = key.replace('ouaf:', '')
-                    new_json[new_key] = item[key]
-                middleware_list.append(new_json)
+            # middleware_list = []
+            # for item in middleware_call:
+            #     new_json = {}
+            #     for key in item:
+            #         new_key = key.replace('ouaf:', '')
+            #         new_json[new_key] = item[key]
+            #     middleware_list.append(new_json)
             
-            json_response = {
-                'result': middleware_list
-            }
+            # json_response = {
+            #     'result': middleware_list
+            # }
+            json_response = middleware_call
 
         elif request_service_name == 'getMaintenanceManager':
             middleware_call = get_maintenancemanager()
             
-            middleware_list = []
-            for item in middleware_call:
-                new_json = {}
-                for key in item:
-                    new_key = key.replace('ouaf:', '')
-                    new_json[new_key] = item[key]
-                middleware_list.append(new_json)
+            # middleware_list = []
+            # for item in middleware_call:
+            #     new_json = {}
+            #     for key in item:
+            #         new_key = key.replace('ouaf:', '')
+            #         new_json[new_key] = item[key]
+            #     middleware_list.append(new_json)
             
-            json_response = {
-                'result': middleware_list
-            }
+            # json_response = {
+            #     'result': middleware_list
+            # }
+            json_response = middleware_call
 
 
         return JsonResponse(json_response)
