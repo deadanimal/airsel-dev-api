@@ -26,7 +26,7 @@ class OperationalReading(models.Model):
 
     class meta:
         ordering = ['-created_date']
-    
+
     def __str__(self):
         return self.asset_id
 
@@ -61,6 +61,84 @@ class WorkRequest(models.Model):
 
     class meta:
         ordering = ['-created_date']
-    
+
     def __str__(self):
         return self.asset_id
+
+class QuestionsValidValue(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False)
+    seq_valid = models.CharField(max_length=100, default='NA')
+    code_valid = models.CharField(max_length=100, default='Na')
+    short_text_valid = models.CharField(max_length=100, default='NA')
+    text_valid = models.CharField(max_length=100, default='NA')
+
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+
+    class meta:
+        ordering = ['-created_date']
+
+class ServiceHistoriesQuestions(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False)
+    seq = models.CharField(max_length=100, default='NA')
+    code = models.CharField(max_length=100, default='NA')
+    short_text = models.CharField(max_length=100, default='NA')
+    text = models.CharField(max_length=100, default='NA')
+    style = models.CharField(max_length=100, default='NA')
+    valid_value = models.ManyToManyField(QuestionsValidValue, null=True)
+    respone = models.CharField(max_length=100, default='NA')
+    response_check_box = models.CharField(max_length=100,default='NA')
+    response_radio = models.CharField(max_length=100,default='NA')
+    responseDate = models.DateField()
+    reading_datetime = models.DateTimeField()
+
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+
+class AssetLocationAssetListServiceHistories(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False)
+    service_history_type = models.CharField(max_length=100,default='NA')
+    effective_datetime = models.DateTimeField(null=True)
+    start_date_time = models.DateTimeField(null=True)
+    end_date_time = models.DateTimeField(null=True)
+    comments = models.CharField(max_length=100, default='NA')
+    failure_type = models.CharField(max_length=100, default='NA')
+    failure_mode = models.CharField(max_length=100, default='NA')
+    failure_repair = models.CharField(max_length=100, default='NA')
+    failure_component = models.CharField(max_length=100, default='NA')
+    failure_root_cause = models.CharField(max_length=100, default='NA')
+    question = models.ManyToManyField(ServiceHistoriesQuestions, null=True)
+
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+
+    class meta:
+        ordering = ['-created_date']
+
+class WorkOrderActivityCompletionAssetLocationAssetList(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False)
+    node_id = models.CharField(max_length=100, default='NA')
+    asset_id = models.CharField(max_length=100, default='NA')
+    participation = models.CharField(max_length=100, default='NA')
+    service_histories = models.ManyToManyField(AssetLocationAssetListServiceHistories, null=True)
+    measurent_type = models.CharField(max_length=100, default='NA')
+    reading_type = models.CharField(max_length=100, default='NA')
+    current_value = models.CharField(max_length=100, default='NA')
+
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+
+    class meta:
+        ordering = ['-created_date']
+
+class WorkOrderActivityCompletion(models.Model):
+    id = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False)
+    activityid = models.CharField(max_length=100, default='NA')
+    completiondatetime = models.DateTimeField(null=True)
+    asset_location_asset_list = models.ManyToManyField(WorkOrderActivityCompletionAssetLocationAssetList, null=True)
+
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+
+    class meta:
+        ordering = ['-created_date']

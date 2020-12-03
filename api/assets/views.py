@@ -11,8 +11,6 @@ from rest_framework_extensions.mixins import NestedViewSetMixin
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import (
-    AssetLocationCostCenter,
-    AssetLocationCriticalityReason,
     AssetLocation,
     AssetMeasurementType,
     AssetAttribute,
@@ -20,80 +18,78 @@ from .models import (
 )
 
 from .serializers import (
-    AssetLocationCostCenterSerializer,
-    AssetLocationCriticalityReasonSerializer,
     AssetLocationSerializer,
     AssetMeasurementTypeSerializer,
     AssetAttributeSerializer,
     AssetSerializer
 )
 
-class AssetLocationCostCenterViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
-    queryset = AssetLocationCostCenter.objects.all()
-    serializer_class = AssetLocationCostCenterSerializer
-    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+# class AssetLocationCostCenterViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+#     queryset = AssetLocationCostCenter.objects.all()
+#     serializer_class = AssetLocationCostCenterSerializer
+#     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+#
+#     def get_permissions(self):
+#         if self.action == 'list':
+#             permission_classes = [AllowAny]
+#         else:
+#             permission_classes = [AllowAny]
+#
+#         return [permission() for permission in permission_classes]
+#
+#
+#     def get_queryset(self):
+#         queryset = AssetLocationCostCenter.objects.all()
+#
+#         """
+#         if self.request.user.is_anonymous:
+#             queryset = Company.objects.none()
+#
+#         else:
+#             user = self.request.user
+#             company_employee = CompanyEmployee.objects.filter(employee=user)
+#             company = company_employee[0].company
+#
+#             if company.company_type == 'AD':
+#                 queryset = AssetLocationCostCenter.objects.all()
+#             else:
+#                 queryset = AssetLocationCostCenter.objects.filter(company=company.id)
+#         """
+#         return queryset
 
-    def get_permissions(self):
-        if self.action == 'list':
-            permission_classes = [AllowAny]
-        else:
-            permission_classes = [AllowAny]
+# class AssetLocationCriticalityReasonViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+#     queryset = AssetLocationCriticalityReason.objects.all()
+#     serializer_class = AssetLocationCriticalityReasonSerializer
+#     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+#
+#     def get_permissions(self):
+#         if self.action == 'list':
+#             permission_classes = [AllowAny]
+#         else:
+#             permission_classes = [AllowAny]
+#
+#         return [permission() for permission in permission_classes]
+#
+#
+#     def get_queryset(self):
+#         queryset = AssetLocationCriticalityReason.objects.all()
+#
+#         """
+#         if self.request.user.is_anonymous:
+#             queryset = Company.objects.none()
+#
+#         else:
+#             user = self.request.user
+#             company_employee = CompanyEmployee.objects.filter(employee=user)
+#             company = company_employee[0].company
+#
+#             if company.company_type == 'AD':
+#                 queryset = AssetLocationCriticalityReason.objects.all()
+#             else:
+#                 queryset = AssetLocationCriticalityReason.objects.filter(company=company.id)
+#         """
+#         return queryset
 
-        return [permission() for permission in permission_classes]    
-
-    
-    def get_queryset(self):
-        queryset = AssetLocationCostCenter.objects.all()
-
-        """
-        if self.request.user.is_anonymous:
-            queryset = Company.objects.none()
-
-        else:
-            user = self.request.user
-            company_employee = CompanyEmployee.objects.filter(employee=user)
-            company = company_employee[0].company
-            
-            if company.company_type == 'AD':
-                queryset = AssetLocationCostCenter.objects.all()
-            else:
-                queryset = AssetLocationCostCenter.objects.filter(company=company.id)
-        """
-        return queryset    
- 
-class AssetLocationCriticalityReasonViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
-    queryset = AssetLocationCriticalityReason.objects.all()
-    serializer_class = AssetLocationCriticalityReasonSerializer
-    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
-
-    def get_permissions(self):
-        if self.action == 'list':
-            permission_classes = [AllowAny]
-        else:
-            permission_classes = [AllowAny]
-
-        return [permission() for permission in permission_classes]    
-
-    
-    def get_queryset(self):
-        queryset = AssetLocationCriticalityReason.objects.all()
-
-        """
-        if self.request.user.is_anonymous:
-            queryset = Company.objects.none()
-
-        else:
-            user = self.request.user
-            company_employee = CompanyEmployee.objects.filter(employee=user)
-            company = company_employee[0].company
-            
-            if company.company_type == 'AD':
-                queryset = AssetLocationCriticalityReason.objects.all()
-            else:
-                queryset = AssetLocationCriticalityReason.objects.filter(company=company.id)
-        """
-        return queryset    
- 
 class AssetLocationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = AssetLocation.objects.all()
     serializer_class = AssetLocationSerializer
@@ -105,9 +101,9 @@ class AssetLocationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         else:
             permission_classes = [AllowAny]
 
-        return [permission() for permission in permission_classes]    
+        return [permission() for permission in permission_classes]
 
-    
+
     def get_queryset(self):
         queryset = AssetLocation.objects.all()
 
@@ -115,13 +111,13 @@ class AssetLocationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         if bool(self.request.data):
             from_date = self.request.data['from_date']
             to_date = self.request.data['to_date']
-            
+
             if from_date is not None and to_date is not None:
                 # print(AssetLocation.objects.filter(created_date__range=(from_date,to_date)).query)
                 queryset = AssetLocation.objects.filter(created_date__range=(from_date,to_date))
 
-        return queryset    
- 
+        return queryset
+
 class AssetMeasurementTypeViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = AssetMeasurementType.objects.all()
     serializer_class = AssetMeasurementTypeSerializer
@@ -133,9 +129,9 @@ class AssetMeasurementTypeViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         else:
             permission_classes = [AllowAny]
 
-        return [permission() for permission in permission_classes]    
+        return [permission() for permission in permission_classes]
 
-    
+
     def get_queryset(self):
         queryset = AssetMeasurementType.objects.all()
 
@@ -147,14 +143,14 @@ class AssetMeasurementTypeViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
             user = self.request.user
             company_employee = CompanyEmployee.objects.filter(employee=user)
             company = company_employee[0].company
-            
+
             if company.company_type == 'AD':
                 queryset = AssetMeasurementType.objects.all()
             else:
                 queryset = AssetMeasurementType.objects.filter(company=company.id)
         """
-        return queryset    
- 
+        return queryset
+
 
 class AssetAttributeViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = AssetAttribute.objects.all()
@@ -167,9 +163,9 @@ class AssetAttributeViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         else:
             permission_classes = [AllowAny]
 
-        return [permission() for permission in permission_classes]    
+        return [permission() for permission in permission_classes]
 
-    
+
     def get_queryset(self):
         queryset = AssetAttribute.objects.all()
 
@@ -181,14 +177,14 @@ class AssetAttributeViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
             user = self.request.user
             company_employee = CompanyEmployee.objects.filter(employee=user)
             company = company_employee[0].company
-            
+
             if company.company_type == 'AD':
                 queryset = AssetAttribute.objects.all()
             else:
                 queryset = AssetAttribute.objects.filter(company=company.id)
         """
-        return queryset    
- 
+        return queryset
+
 
 class AssetViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = Asset.objects.all()
@@ -201,9 +197,9 @@ class AssetViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         else:
             permission_classes = [AllowAny]
 
-        return [permission() for permission in permission_classes]    
+        return [permission() for permission in permission_classes]
 
-    
+
     def get_queryset(self):
         queryset = Asset.objects.all()
 
@@ -211,10 +207,10 @@ class AssetViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         if bool(self.request.data):
             from_date = self.request.data['from_date']
             to_date = self.request.data['to_date']
-            
-            if from_date is not None and to_date is not None:
-                # print(Asset.objects.filter(created_date__range=(from_date,to_date)).query)
-                queryset = Asset.objects.filter(created_date__range=(from_date,to_date))
+            transaction_type_req = self.request.data['transaction_type']
 
-        return queryset    
- 
+            if from_date is not None and to_date is not None and transaction_type_req is not None:
+                print(Asset.objects.filter(created_date__range=(from_date,to_date),transaction_type=(transaction_type_req)).query)
+                queryset = Asset.objects.filter(created_date__range=(from_date,to_date),transaction_type=(transaction_type_req))
+
+        return queryset

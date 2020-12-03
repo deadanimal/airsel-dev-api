@@ -10,7 +10,12 @@ from django.utils.timezone import now
 
 from .models import (
     OperationalReading,
-    WorkRequest
+    WorkRequest,
+    WorkOrderActivityCompletionAssetLocationAssetList,
+    AssetLocationAssetListServiceHistories,
+    ServiceHistoriesQuestions,
+    QuestionsValidValue,
+    WorkOrderActivityCompletion
 )
 
 class OperationalReadingSerializer(serializers.ModelSerializer):
@@ -24,3 +29,33 @@ class WorkRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkRequest
         fields = '__all__'
+
+class WorkOrderActivityCompletionAssetLocationAssetListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = WorkOrderActivityCompletionAssetLocationAssetList
+        fields = '__all__'
+
+class AssetLocationAssetListServiceHistoriesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AssetLocationAssetListServiceHistories
+        fields = '__all__'
+
+class ServiceHistoriesQuestionsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ServiceHistoriesQuestions
+        fields = '__all__'
+
+class QuestionsValidValueSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = QuestionsValidValue
+        fields = '__all__'
+
+class WorkOrderActivityCompletionSerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model = WorkOrderActivityCompletion
+		fields = '__all__'

@@ -24,21 +24,19 @@ router = NestedDefaultRouter()
 
 # Assets app
 from assets.views import (
-    AssetLocationCostCenterViewSet,
-    AssetLocationCriticalityReasonViewSet,
     AssetLocationViewSet,
     AssetMeasurementTypeViewSet,
     AssetAttributeViewSet,
     AssetViewSet
 )
 
-asset_location_cost_centers_router = router.register(
-    'asset-location-cost-centers', AssetLocationViewSet
-)
-
-asset_location_criticalitys_router = router.register(
-    'asset-location-criticalities', AssetLocationCriticalityReasonViewSet
-)
+# asset_location_cost_centers_router = router.register(
+#     'asset-location-cost-centers', AssetLocationViewSet
+# )
+#
+# asset_location_criticalitys_router = router.register(
+#     'asset-location-criticalities', AssetLocationCriticalityReasonViewSet
+# )
 
 asset_locations_router = router.register(
     'asset-locations', AssetLocationViewSet
@@ -60,7 +58,12 @@ assets_router = router.register(
 
 from operations.views import (
     OperationalReadingViewSet,
-    WorkRequestViewSet
+    WorkRequestViewSet,
+    WorkOrderActivityCompletionAssetLocationAssetListViewSet,
+    AssetLocationAssetListServiceHistoriesViewSet,
+    ServiceHistoriesQuestionsViewSet,
+    QuestionsValidValueViewSet,
+    WorkOrderActivityCompletionViewSet
 )
 
 operational_readings_router = router.register(
@@ -69,6 +72,26 @@ operational_readings_router = router.register(
 
 work_requests_router = router.register(
     'work-requests', WorkRequestViewSet
+)
+
+work_order_activity_completion_router = router.register(
+    'work-order-activity-completion', WorkOrderActivityCompletionViewSet
+)
+
+work_order_activity_completion_asset_location_asset_list_router = router.register(
+    'work-order-activity-completion-asset-location-asset-list', WorkOrderActivityCompletionAssetLocationAssetListViewSet
+)
+
+asset_location_asset_list_service_histories_router = router.register(
+    'asset-location-asset-list-service-histories', AssetLocationAssetListServiceHistoriesViewSet
+)
+
+service_histories_questions_router = router.register(
+    'service-histories-questions', ServiceHistoriesQuestionsViewSet
+)
+
+questions_valid_value_router = router.register(
+    'questions-value-valid', QuestionsValidValueViewSet
 )
 
 # Wams app

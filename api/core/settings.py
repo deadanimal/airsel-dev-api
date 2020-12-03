@@ -20,8 +20,9 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = [
-    'airsel-dev-api.pipe.my',
-    '127.0.0.1'
+    # 'airsel-dev-api.pipe.my',
+    # '127.0.0.1',
+    # 'localhost',
 ]
 
 # Application definition
@@ -162,12 +163,12 @@ SITE_ID = 1
 REST_USE_JWT = True
 
 REST_FRAMEWORK = {
-    
+
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        
+
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
-    
+
 }
 
 SIMPLE_JWT = {

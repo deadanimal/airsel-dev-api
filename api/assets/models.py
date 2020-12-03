@@ -10,34 +10,34 @@ from simple_history.models import HistoricalRecords
 from core.helpers import PathAndRename
 
 
-class AssetLocationCostCenter(models.Model):
+# class AssetLocationCostCenter(models.Model):
+#
+#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+#     cost_center = models.CharField(max_length=100, default='NA')
+#     percentage = models.FloatField(default=0)
+#
+#     created_date = models.DateTimeField(auto_now_add=True)
+#     modified_date = models.DateTimeField(auto_now=True)
+#
+#     class meta:
+#         ordering = ['-created_date']
+#
+#     def __str__(self):
+#         return self.cost_center
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    cost_center = models.CharField(max_length=100, default='NA')
-    percentage = models.FloatField(default=0)
-
-    created_date = models.DateTimeField(auto_now_add=True)
-    modified_date = models.DateTimeField(auto_now=True)
-
-    class meta:
-        ordering = ['-created_date']
-    
-    def __str__(self):
-        return self.cost_center
-
-class AssetLocationCriticalityReason(models.Model):
-
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    criticality_reason = models.CharField(max_length=100, default='NA')
-
-    created_date = models.DateTimeField(auto_now_add=True)
-    modified_date = models.DateTimeField(auto_now=True)
-
-    class meta:
-        ordering = ['-created_date']
-    
-    def __str__(self):
-        return self.criticality_reason
+# class AssetLocationCriticalityReason(models.Model):
+#
+#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+#     criticality_reason = models.CharField(max_length=100, default='NA')
+#
+#     created_date = models.DateTimeField(auto_now_add=True)
+#     modified_date = models.DateTimeField(auto_now=True)
+#
+#     class meta:
+#         ordering = ['-created_date']
+#
+#     def __str__(self):
+#         return self.criticality_reason
 
 class AssetLocation(models.Model):
 
@@ -48,7 +48,7 @@ class AssetLocation(models.Model):
     parent_loc_or_org = models.CharField(max_length=100, default='NA')
     work_request_approval_profile = models.CharField(max_length=100, default='NA')
     owning_org = models.CharField(max_length=100, default='NA')
-    
+
     building = models.CharField(max_length=100, default='NA')
     room = models.CharField(max_length=100, default='NA')
     position = models.CharField(max_length=100, default='NA')
@@ -62,11 +62,11 @@ class AssetLocation(models.Model):
     state = models.CharField(max_length=100, default='NA')
     postal = models.CharField(max_length=100, default='NA')
     location_class = models.CharField(max_length=100, default='NA')
-    
+
     main_contact = models.CharField(max_length=100, default='NA')
     maintenance_manager = models.CharField(max_length=100, default='NA')
     planner = models.CharField(max_length=100, default='NA')
-    cost_center = models.ManyToManyField(AssetLocationCostCenter, blank=True, null=True)
+    cost_center = models.CharField(max_length=100, default='NA')
 
     rcm_system = models.CharField(max_length=100, default='NA')
     environmental_rating = models.CharField(max_length=100, default='NA')
@@ -83,14 +83,14 @@ class AssetLocation(models.Model):
     latitude = models.CharField(max_length=100, default='NA')
     longitude = models.CharField(max_length=100, default='NA')
     asset_criticality = models.CharField(max_length=100, default='NA')
-    criticality_reason = models.ManyToManyField(AssetLocationCriticalityReason, null=True, blank=True)
+    criticality_reason = models.CharField(max_length=100, default='NA')
 
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
     class meta:
         ordering = ['-created_date']
-    
+
     def __str__(self):
         return self.work_request_approval_profile
 
@@ -103,7 +103,7 @@ class AssetMeasurementType(models.Model):
 
     class meta:
         ordering = ['-created_date']
-    
+
     def __str__(self):
         return self.measurement_type
 
@@ -119,7 +119,7 @@ class AssetAttribute(models.Model):
 
     class meta:
         ordering = ['-created_date']
-    
+
     def __str__(self):
         return self.measurement_type
 
@@ -158,14 +158,13 @@ class Asset(models.Model):
     warranty_expiration_date = models.DateField(null=True)
     warranty_detail = models.CharField(max_length=100, default='NA')
     vendor_part_no = models.CharField(max_length=100, default='NA')
+    asset_attributes = models.ManyToManyField(AssetAttribute, null=True)
 
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
     class meta:
         ordering = ['-created_date']
-    
+
     def __str__(self):
         return self.asset_id
-
-

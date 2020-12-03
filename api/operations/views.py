@@ -14,12 +14,22 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import (
     OperationalReading,
-    WorkRequest
+    WorkRequest,
+    WorkOrderActivityCompletionAssetLocationAssetList,
+    AssetLocationAssetListServiceHistories,
+    ServiceHistoriesQuestions,
+    QuestionsValidValue,
+    WorkOrderActivityCompletion
 )
 
 from .serializers import (
     OperationalReadingSerializer,
-    WorkRequestSerializer
+    WorkRequestSerializer,
+    WorkOrderActivityCompletionAssetLocationAssetListSerializer,
+    AssetLocationAssetListServiceHistoriesSerializer,
+    ServiceHistoriesQuestionsSerializer,
+    QuestionsValidValueSerializer,
+    WorkOrderActivityCompletionSerializer
 )
 
 class OperationalReadingViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
@@ -33,9 +43,9 @@ class OperationalReadingViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         else:
             permission_classes = [AllowAny]
 
-        return [permission() for permission in permission_classes]    
+        return [permission() for permission in permission_classes]
 
-    
+
     def get_queryset(self):
         queryset = OperationalReading.objects.all()
 
@@ -44,13 +54,13 @@ class OperationalReadingViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
             print("enter bool()")
             from_date = self.request.data['from_date']
             to_date = self.request.data['to_date']
-            
+
             if from_date is not None and to_date is not None:
                 # print(OperationalReading.objects.filter(created_date__range=(from_date,to_date)).query)
                 queryset = OperationalReading.objects.filter(created_date__range=(from_date,to_date))
 
-        return queryset    
- 
+        return queryset
+
 class WorkRequestViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = WorkRequest.objects.all()
     serializer_class = WorkRequestSerializer
@@ -62,9 +72,9 @@ class WorkRequestViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         else:
             permission_classes = [AllowAny]
 
-        return [permission() for permission in permission_classes]    
+        return [permission() for permission in permission_classes]
 
-    
+
     def get_queryset(self):
         queryset = WorkRequest.objects.all()
 
@@ -73,10 +83,111 @@ class WorkRequestViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
             print("enter bool()")
             from_date = self.request.data['from_date']
             to_date = self.request.data['to_date']
-            
+
             if from_date is not None and to_date is not None:
                 # print(WorkRequest.objects.filter(created_date__range=(from_date,to_date)).query)
                 queryset = WorkRequest.objects.filter(created_date__range=(from_date,to_date))
 
-        return queryset    
- 
+        return queryset
+
+class WorkOrderActivityCompletionAssetLocationAssetListViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+    queryset = WorkOrderActivityCompletionAssetLocationAssetList.objects.all()
+    serializer_class = WorkOrderActivityCompletionAssetLocationAssetListSerializer
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+
+    def get_permissions(self):
+        if self.action == 'list':
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [AllowAny]
+
+        return [permission() for permission in permission_classes]
+
+    def get_queryset(self):
+        queryset = WorkOrderActivityCompletionAssetLocationAssetList.objects.all()
+
+        return queryset
+
+class AssetLocationAssetListServiceHistoriesViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+    queryset = AssetLocationAssetListServiceHistories.objects.all()
+    serializer_class = AssetLocationAssetListServiceHistoriesSerializer
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+
+    def get_permissions(self):
+        if self.action == 'list':
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [AllowAny]
+
+        return [permission() for permission in permission_classes]
+
+    def get_queryset(self):
+        queryset = AssetLocationAssetListServiceHistories.objects.all()
+
+        return queryset
+
+class ServiceHistoriesQuestionsViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+    queryset = ServiceHistoriesQuestions.objects.all()
+    serializer_class = ServiceHistoriesQuestionsSerializer
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+
+    def get_permissions(self):
+        if self.action == 'list':
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [AllowAny]
+
+        return [permission() for permission in permission_classes]
+
+    def get_queryset(self):
+        queryset = ServiceHistoriesQuestions.objects.all()
+
+        return queryset
+
+class QuestionsValidValueViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+    queryset = QuestionsValidValue.objects.all()
+    serializer_class = QuestionsValidValueSerializer
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+
+    def get_permissions(self):
+        if self.action == 'list':
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [AllowAny]
+
+        return [permission() for permission in permission_classes]
+
+    def get_queryset(self):
+        queryset = QuestionsValidValue.objects.all()
+
+        return queryset
+
+
+class WorkOrderActivityCompletionViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
+    queryset = WorkOrderActivityCompletion.objects.all()
+    serializer_class = WorkOrderActivityCompletionSerializer
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+
+    def get_permissions(self):
+        if self.action == 'list':
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [AllowAny]
+
+        return [permission() for permission in permission_classes]
+
+
+    def get_queryset(self):
+        queryset = WorkOrderActivityCompletion.objects.all()
+
+        # FROM APPLICATION/JSON THROUGH API
+        if bool(self.request.data):
+            print("enter bool()")
+            from_date = self.request.data['from_date']
+            to_date = self.request.data['to_date']
+
+            if from_date is not None and to_date is not None:
+                # print(WorkRequest.objects.filter(created_date__range=(from_date,to_date)).query)
+                queryset = WorkOrderActivityCompletion.objects.filter(created_date__range=(from_date,to_date))
+
+        return queryset
