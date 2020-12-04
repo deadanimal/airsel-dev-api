@@ -20,9 +20,9 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = [
-    # 'airsel-dev-api.pipe.my',
-    # '127.0.0.1',
-    # 'localhost',
+    'airsel-dev-api.pipe.my',
+    '127.0.0.1',
+    'localhost',
 ]
 
 # Application definition
@@ -98,6 +98,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'DISABLE_SERVER_SIDE_CURSORS': True
     }
+
+    }
 }
 
 
@@ -132,7 +134,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 # STATIC_URL = '/static/'
 
