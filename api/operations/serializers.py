@@ -59,3 +59,32 @@ class WorkOrderActivityCompletionSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = WorkOrderActivityCompletion
 		fields = '__all__'
+
+class ServiceHistoriesQuestionsExtendedSerializer(serializers.ModelSerializer):
+    
+    valid_value = QuestionsValidValueSerializer(many=True)
+    class Meta:
+        model = ServiceHistoriesQuestions
+        fields = '__all__'
+
+
+class AssetLocationAssetListServiceHistoriesExtendedSerializer(serializers.ModelSerializer):
+    
+    question = ServiceHistoriesQuestionsExtendedSerializer(many=True)
+    class Meta:
+        model = AssetLocationAssetListServiceHistories
+        fields = '__all__'
+
+class WorkOrderActivityCompletionAssetLocationAssetListExtendedSerializer(serializers.ModelSerializer):
+
+    service_histories = AssetLocationAssetListServiceHistoriesExtendedSerializer(many=True)
+    class Meta:
+        model = WorkOrderActivityCompletionAssetLocationAssetList
+        fields = '__all__'
+
+class WorkOrderActivityCompletionExtendedSerializer(serializers.ModelSerializer):
+
+    asset_location_asset_list = WorkOrderActivityCompletionAssetLocationAssetListExtendedSerializer(many=True)
+    class Meta:
+        model = WorkOrderActivityCompletion
+        fields = '__all__'

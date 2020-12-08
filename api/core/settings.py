@@ -99,7 +99,6 @@ DATABASES = {
         'DISABLE_SERVER_SIDE_CURSORS': True
     }
 
-    }
 }
 
 

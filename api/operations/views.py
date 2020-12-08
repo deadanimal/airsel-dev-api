@@ -29,7 +29,8 @@ from .serializers import (
     AssetLocationAssetListServiceHistoriesSerializer,
     ServiceHistoriesQuestionsSerializer,
     QuestionsValidValueSerializer,
-    WorkOrderActivityCompletionSerializer
+    WorkOrderActivityCompletionSerializer,
+    WorkOrderActivityCompletionExtendedSerializer
 )
 
 class OperationalReadingViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
@@ -191,3 +192,16 @@ class WorkOrderActivityCompletionViewSet(NestedViewSetMixin, viewsets.ModelViewS
                 queryset = WorkOrderActivityCompletion.objects.filter(created_date__range=(from_date,to_date))
 
         return queryset
+    
+    @action(methods=['GET'], detail=False)
+    def extended_all(self, request, *args, **kwargs):  
+        queryset = WorkOrderActivityCompletion.objects.all()
+        serializer = WorkOrderActivityCompletionExtendedSerializer (queryset, many=True)
+        return Response(serializer.data)
+
+    @action(methods=['GET'], detail=True)
+    def extended(self, request, *args, **kwargs):  
+        work_order_activity = self.get_object()
+
+        serializer = WorkOrderActivityCompletionExtendedSerializer(work_order_activity)
+        return Response(serializer.data)

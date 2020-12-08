@@ -21,7 +21,8 @@ from .serializers import (
     AssetLocationSerializer,
     AssetMeasurementTypeSerializer,
     AssetAttributeSerializer,
-    AssetSerializer
+    AssetSerializer,
+    AssetExtendedSerializer
 )
 
 # class AssetLocationCostCenterViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
@@ -214,3 +215,16 @@ class AssetViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
                 queryset = Asset.objects.filter(created_date__range=(from_date,to_date),transaction_type=(transaction_type_req))
 
         return queryset
+    
+    @action(methods=['GET'], detail=False)
+    def extended_all(self, request, *args, **kwargs):  
+        queryset = Asset.objects.all()
+        serializer = AssetExtendedSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    @action(methods=['GET'], detail=True)
+    def extended(self, request, *args, **kwargs):  
+        asset_ = self.get_object()
+
+        serializer = AssetExtendedSerializer(asset_)
+        return Response(serializer.data)

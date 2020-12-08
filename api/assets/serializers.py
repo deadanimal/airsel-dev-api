@@ -51,3 +51,12 @@ class AssetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Asset
         fields = '__all__'
+
+class AssetExtendedSerializer(serializers.ModelSerializer):
+
+    measurement_types = AssetMeasurementTypeSerializer(many=True)
+    asset_attributes = AssetAttributeSerializer(many=True)
+    
+    class Meta:
+        model = Asset
+        fields = '__all__'
