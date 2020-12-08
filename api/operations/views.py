@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.db.models import Q
 from django.utils import timezone
-import datetime, pytz
+import datetime
+import pytz
 
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
@@ -33,6 +34,7 @@ from .serializers import (
     WorkOrderActivityCompletionExtendedSerializer
 )
 
+
 class OperationalReadingViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = OperationalReading.objects.all()
     serializer_class = OperationalReadingSerializer
@@ -46,7 +48,6 @@ class OperationalReadingViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
         return [permission() for permission in permission_classes]
 
-
     def get_queryset(self):
         queryset = OperationalReading.objects.all()
 
@@ -58,9 +59,11 @@ class OperationalReadingViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
             if from_date is not None and to_date is not None:
                 # print(OperationalReading.objects.filter(created_date__range=(from_date,to_date)).query)
-                queryset = OperationalReading.objects.filter(created_date__range=(from_date,to_date))
+                queryset = OperationalReading.objects.filter(
+                    created_date__range=(from_date, to_date))
 
         return queryset
+
 
 class WorkRequestViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = WorkRequest.objects.all()
@@ -75,7 +78,6 @@ class WorkRequestViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
         return [permission() for permission in permission_classes]
 
-
     def get_queryset(self):
         queryset = WorkRequest.objects.all()
 
@@ -87,9 +89,11 @@ class WorkRequestViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
             if from_date is not None and to_date is not None:
                 # print(WorkRequest.objects.filter(created_date__range=(from_date,to_date)).query)
-                queryset = WorkRequest.objects.filter(created_date__range=(from_date,to_date))
+                queryset = WorkRequest.objects.filter(
+                    created_date__range=(from_date, to_date))
 
         return queryset
+
 
 class WorkOrderActivityCompletionAssetLocationAssetListViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = WorkOrderActivityCompletionAssetLocationAssetList.objects.all()
@@ -109,6 +113,7 @@ class WorkOrderActivityCompletionAssetLocationAssetListViewSet(NestedViewSetMixi
 
         return queryset
 
+
 class AssetLocationAssetListServiceHistoriesViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = AssetLocationAssetListServiceHistories.objects.all()
     serializer_class = AssetLocationAssetListServiceHistoriesSerializer
@@ -127,6 +132,7 @@ class AssetLocationAssetListServiceHistoriesViewSet(NestedViewSetMixin, viewsets
 
         return queryset
 
+
 class ServiceHistoriesQuestionsViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = ServiceHistoriesQuestions.objects.all()
     serializer_class = ServiceHistoriesQuestionsSerializer
@@ -144,6 +150,7 @@ class ServiceHistoriesQuestionsViewSet(NestedViewSetMixin, viewsets.ModelViewSet
         queryset = ServiceHistoriesQuestions.objects.all()
 
         return queryset
+
 
 class QuestionsValidValueViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = QuestionsValidValue.objects.all()
@@ -177,7 +184,6 @@ class WorkOrderActivityCompletionViewSet(NestedViewSetMixin, viewsets.ModelViewS
 
         return [permission() for permission in permission_classes]
 
-
     def get_queryset(self):
         queryset = WorkOrderActivityCompletion.objects.all()
 
@@ -189,19 +195,31 @@ class WorkOrderActivityCompletionViewSet(NestedViewSetMixin, viewsets.ModelViewS
 
             if from_date is not None and to_date is not None:
                 # print(WorkRequest.objects.filter(created_date__range=(from_date,to_date)).query)
-                queryset = WorkOrderActivityCompletion.objects.filter(created_date__range=(from_date,to_date))
+                queryset = WorkOrderActivityCompletion.objects.filter(
+                    created_date__range=(from_date, to_date))
 
         return queryset
-    
-    @action(methods=['GET'], detail=False)
-    def extended_all(self, request, *args, **kwargs):  
+
+    @action(methods=['POST'], detail=False)
+    def extended_all(self, request, *args, **kwargs):
+
+        from_date = self.request.data['from_date']
+        to_date = self.request.data['to_date']
+
         queryset = WorkOrderActivityCompletion.objects.all()
-        serializer = WorkOrderActivityCompletionExtendedSerializer (queryset, many=True)
+
+        if from_date is not None and to_date is not None:
+            queryset = WorkOrderActivityCompletion.objects.filter(
+                created_date__range=(from_date, to_date))
+
+        serializer = WorkOrderActivityCompletionExtendedSerializer(
+            queryset, many=True)
         return Response(serializer.data)
 
     @action(methods=['GET'], detail=True)
-    def extended(self, request, *args, **kwargs):  
+    def extended(self, request, *args, **kwargs):
         work_order_activity = self.get_object()
 
-        serializer = WorkOrderActivityCompletionExtendedSerializer(work_order_activity)
+        serializer = WorkOrderActivityCompletionExtendedSerializer(
+            work_order_activity)
         return Response(serializer.data)
