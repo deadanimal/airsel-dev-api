@@ -216,10 +216,20 @@ class AssetViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
         return queryset
     
-    @action(methods=['GET'], detail=False)
+    @action(methods=['POST'], detail=False)
     def extended_all(self, request, *args, **kwargs):  
+        from_date = self.request.data['from_date']
+        to_date = self.request.data['to_date']
+        transaction_type = self.request.data['transaction_type']
+
         queryset = Asset.objects.all()
-        serializer = AssetExtendedSerializer(queryset, many=True)
+
+        if from_date is not None and to_date is not None and transaction_type is not None:
+            queryset = Asset.objects.filter(
+                modified_date__range=(from_date, to_date)).filter(transaction_type=transaction_type)
+
+        serializer = AssetExtendedSerializer(
+            queryset, many=True)
         return Response(serializer.data)
 
     @action(methods=['GET'], detail=True)
