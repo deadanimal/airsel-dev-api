@@ -44,6 +44,7 @@ class AssetLocation(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     location_type = models.CharField(max_length=100, default='NA')
     locatin_disposition = models.CharField(max_length=100, default='NA')
+    Bo = models.CharField(max_length=100, default='NA')
     description = models.CharField(max_length=100, default='NA')
     parent_loc_or_org = models.CharField(max_length=100, default='NA')
     work_request_approval_profile = models.CharField(max_length=100, default='NA')
