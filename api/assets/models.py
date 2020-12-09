@@ -121,7 +121,7 @@ class AssetAttribute(models.Model):
         ordering = ['-created_date']
 
     def __str__(self):
-        return self.measurement_type
+        return self.characteristic_type + ' ' + self.adhoc_value + ' ' + self.characteristic_value
 
 
 class Asset(models.Model):
