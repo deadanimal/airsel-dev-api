@@ -27,10 +27,14 @@ from datetime import datetime
 from wams.services.int01_employee import get_employee
 from wams.services.int02_workorderactivity import get_workorderactivity
 from wams.services.int04_assetsyncoutbound import get_assetsyncoutbound
+from wams.services.int07_servicehistorytype import get_servicehistorytype
 from wams.services.int08_failureprofile import get_failureprofile
 from wams.services.int09_measurementtype import get_measurementtype
+from wams.services.int10_inboundworkrequest import get_inboundworkrequest
 from wams.services.int11_planner import get_planner
 from wams.services.int15_asset import get_asset
+from wams.services.int16_workrequeststatusupdate import get_workrequeststatusupdate
+from wams.services.int18_assetlocation import get_assetlocation
 from wams.services.int19_maintenancemanager import get_maintenancemanager
 
 from .models import (
@@ -107,6 +111,22 @@ class WamsViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
             # }
             json_response = middleware_call
 
+        elif request_service_name == 'getServiceHistoryType':
+            middleware_call = get_servicehistorytype()
+            
+            # middleware_list = []
+            # for item in middleware_call:
+            #     new_json = {}
+            #     for key in item:
+            #         new_key = key.replace('ouaf:', '')
+            #         new_json[new_key] = item[key]
+            #     middleware_list.append(new_json)
+            
+            # json_response = {
+            #     'result': middleware_list
+            # }
+            json_response = middleware_call
+
         elif request_service_name == 'getFailureProfile':
             middleware_call = get_failureprofile()
             
@@ -125,6 +145,23 @@ class WamsViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
         elif request_service_name == 'getMeasurementType':
             middleware_call = get_measurementtype()
+            
+            # middleware_list = []
+            # for item in middleware_call:
+            #     new_json = {}
+            #     for key in item:
+            #         new_key = key.replace('ouaf:', '')
+            #         new_json[new_key] = item[key]
+            #     middleware_list.append(new_json)
+            
+            # json_response = {
+            #     'result': middleware_list
+            # }
+            json_response = middleware_call
+
+        elif request_service_name == 'getInboundWorkRequest':
+            request_int10_type = call_json['int10_type'] if call_json['int10_type'] else None
+            middleware_call = get_inboundworkrequest(request_int10_type)
             
             # middleware_list = []
             # for item in middleware_call:
@@ -171,8 +208,24 @@ class WamsViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
             # }
             json_response = middleware_call
 
+        elif request_service_name == 'getWorkRequestStatusUpdate':
+            middleware_call = get_workrequeststatusupdate()
+            
+            # middleware_list = []
+            # for item in middleware_call:
+            #     new_json = {}
+            #     for key in item:
+            #         new_key = key.replace('ouaf:', '')
+            #         new_json[new_key] = item[key]
+            #     middleware_list.append(new_json)
+            
+            # json_response = {
+            #     'result': middleware_list
+            # }
+            json_response = middleware_call
+
         elif request_service_name == 'getAssetLocation':
-            middleware_call = get_asset()
+            middleware_call = get_assetlocation()
             
             # middleware_list = []
             # for item in middleware_call:
