@@ -124,6 +124,7 @@ class WorkOrderActivityCompletionAssetLocationAssetList(models.Model):
     measurent_type = models.CharField(max_length=100, default='NA')
     reading_type = models.CharField(max_length=100, default='NA')
     current_value = models.CharField(max_length=100, default='NA')
+    reading_datetime = models.DateTimeField()
 
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
