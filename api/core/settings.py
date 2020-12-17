@@ -102,6 +102,8 @@ DATABASES = {
 }
 
 
+
+
 import dj_database_url
 db_from_env = dj_database_url.config(default=config('DATABASE_URL'), conn_max_age=500)
 DATABASES['default'].update(db_from_env)
@@ -127,13 +129,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kuala_Lumpur'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False
+USE_TZ = True
 
 # STATIC_URL = '/static/'
 
