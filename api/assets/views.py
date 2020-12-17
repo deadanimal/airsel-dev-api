@@ -206,13 +206,14 @@ class AssetViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
         # FROM APPLICATION/JSON THROUGH API
         if bool(self.request.data):
-            from_date = self.request.data['from_date']
-            to_date = self.request.data['to_date']
-            transaction_type_req = self.request.data['transaction_type']
+            if 'from_date' in self.request.data and 'to_date' in self.request.data:
+                from_date = self.request.data['from_date']
+                to_date = self.request.data['to_date']
+                transaction_type_req = self.request.data['transaction_type']
 
-            if from_date is not None and to_date is not None and transaction_type_req is not None:
-                print(Asset.objects.filter(created_date__range=(from_date,to_date),transaction_type=(transaction_type_req)).query)
-                queryset = Asset.objects.filter(created_date__range=(from_date,to_date),transaction_type=(transaction_type_req))
+                if from_date is not None and to_date is not None and transaction_type_req is not None:
+                    print(Asset.objects.filter(created_date__range=(from_date,to_date),transaction_type=(transaction_type_req)).query)
+                    queryset = Asset.objects.filter(created_date__range=(from_date,to_date),transaction_type=(transaction_type_req))
 
         return queryset
     
