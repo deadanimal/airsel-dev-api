@@ -20,6 +20,7 @@ class OperationalReading(models.Model):
     measurent_type = models.CharField(max_length=100, default='NA')
     initial_value_flag = models.CharField(max_length=100, default='NA')
     owning_organization = models.CharField(max_length=100, default='NA')
+    reading_datetime = models.DateTimeField(auto_now=True)
 
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
@@ -40,7 +41,7 @@ class WorkRequest(models.Model):
     approval_profile = models.CharField(max_length=100, default='NA')
     bo  = models.CharField(max_length=100, default='NA')
 
-    downtime_start = models.DateTimeField(null=True)
+    downtime_start = models.DateTimeField(auto_now=True)
     planner  = models.CharField(max_length=100, default='NA')
     work_class = models.CharField(max_length=100, default='NA')
     work_category = models.CharField(max_length=100, default='NA')
@@ -90,7 +91,7 @@ class ServiceHistoriesQuestions(models.Model):
     response_check_box = models.CharField(max_length=100,default='NA')
     response_radio = models.CharField(max_length=100,default='NA')
     responseDate = models.DateField()
-    response_datetime = models.DateTimeField()
+    response_datetime = models.DateTimeField(auto_now=True)
 
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
@@ -98,9 +99,9 @@ class ServiceHistoriesQuestions(models.Model):
 class AssetLocationAssetListServiceHistories(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False)
     service_history_type = models.CharField(max_length=100,default='NA')
-    effective_datetime = models.DateTimeField(null=True)
-    start_date_time = models.DateTimeField(null=True)
-    end_date_time = models.DateTimeField(null=True)
+    effective_datetime = models.DateTimeField(auto_now=True)
+    start_date_time = models.DateTimeField(auto_now=True)
+    end_date_time = models.DateTimeField(auto_now=True)
     comments = models.CharField(max_length=100, default='NA')
     failure_type = models.CharField(max_length=100, default='NA')
     failure_mode = models.CharField(max_length=100, default='NA')
@@ -124,7 +125,7 @@ class WorkOrderActivityCompletionAssetLocationAssetList(models.Model):
     measurent_type = models.CharField(max_length=100, default='NA')
     reading_type = models.CharField(max_length=100, default='NA')
     current_value = models.CharField(max_length=100, default='NA')
-    reading_datetime = models.DateTimeField()
+    reading_datetime = models.DateTimeField(auto_now=True)
 
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
@@ -135,7 +136,7 @@ class WorkOrderActivityCompletionAssetLocationAssetList(models.Model):
 class WorkOrderActivityCompletion(models.Model):
     id = models.UUIDField(primary_key=True,default=uuid.uuid4, editable=False)
     activityid = models.CharField(max_length=100, default='NA')
-    completiondatetime = models.DateTimeField(null=True)
+    completiondatetime = models.DateTimeField(auto_now=True)
     asset_location_asset_list = models.ManyToManyField(WorkOrderActivityCompletionAssetLocationAssetList, null=True)
 
     created_date = models.DateTimeField(auto_now_add=True)
