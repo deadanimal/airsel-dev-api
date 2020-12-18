@@ -90,7 +90,7 @@ class ServiceHistoriesQuestions(models.Model):
     respone = models.CharField(max_length=100, default='NA')
     response_check_box = models.CharField(max_length=100,default='NA')
     response_radio = models.CharField(max_length=100,default='NA')
-    responseDate = models.DateField()
+    responseDate = models.DateField(null=True)
     response_datetime = models.DateTimeField(auto_now=True)
 
     created_date = models.DateTimeField(auto_now_add=True)
