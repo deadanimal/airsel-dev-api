@@ -22,6 +22,7 @@ class OperationalReading(models.Model):
     owning_organization = models.CharField(max_length=100, default='NA')
     reading_datetime = models.DateTimeField(auto_now=True)
 
+    submitted_datetime = models.DateTimeField(auto_now=True)
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
@@ -56,6 +57,7 @@ class WorkRequest(models.Model):
     node_id = models.CharField(max_length=100, default='NA')
     asset_id = models.CharField(max_length=100, default='NA')
 
+    submitted_datetime = models.DateTimeField(auto_now=True)
     created_by = models.CharField(max_length=100, default='NA')
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
@@ -139,6 +141,7 @@ class WorkOrderActivityCompletion(models.Model):
     completiondatetime = models.DateTimeField(auto_now=True)
     asset_location_asset_list = models.ManyToManyField(WorkOrderActivityCompletionAssetLocationAssetList, null=True)
 
+    submitted_datetime = models.DateTimeField(auto_now=True)
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
