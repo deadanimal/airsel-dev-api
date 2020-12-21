@@ -54,13 +54,14 @@ class OperationalReadingViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         # FROM APPLICATION/JSON THROUGH API
         if bool(self.request.data):
             print("enter bool()")
-            from_date = self.request.data['from_date']
-            to_date = self.request.data['to_date']
+            if 'from_date' in self.request.data and 'to_date' in self.request.data:
 
-            if from_date is not None and to_date is not None:
-                # print(OperationalReading.objects.filter(created_date__range=(from_date,to_date)).query)
-                queryset = OperationalReading.objects.filter(
-                    created_date__range=(from_date, to_date))
+                from_date = self.request.data.get('from_date', None)
+                to_date = self.request.data.get('to_date', None)
+
+                if from_date is not None and to_date is not None:
+                    # print(OperationalReading.objects.filter(submitted_datetime__range=(from_date,to_date)).query)
+                    queryset = OperationalReading.objects.filter(submitted_datetime__range=(from_date,to_date))
 
         return queryset
 
@@ -84,13 +85,14 @@ class WorkRequestViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
         # FROM APPLICATION/JSON THROUGH API
         if bool(self.request.data):
             print("enter bool()")
-            from_date = self.request.data['from_date']
-            to_date = self.request.data['to_date']
+            if 'from_date' in self.request.data and 'to_date' in self.request.data:
 
-            if from_date is not None and to_date is not None:
-                # print(WorkRequest.objects.filter(created_date__range=(from_date,to_date)).query)
-                queryset = WorkRequest.objects.filter(
-                    created_date__range=(from_date, to_date))
+                from_date = self.request.data.get('from_date', None)
+                to_date = self.request.data.get('to_date', None)
+
+                if from_date is not None and to_date is not None:
+                    # print(WorkRequest.objects.filter(submitted_datetime__range=(from_date,to_date)).query)
+                    queryset = WorkRequest.objects.filter(submitted_datetime__range=(from_date,to_date))
 
         return queryset
 
@@ -190,13 +192,14 @@ class WorkOrderActivityCompletionViewSet(NestedViewSetMixin, viewsets.ModelViewS
         # FROM APPLICATION/JSON THROUGH API
         if bool(self.request.data):
             print("enter bool()")
-            from_date = self.request.data['from_date']
-            to_date = self.request.data['to_date']
+            if 'from_date' in self.request.data and 'to_date' in self.request.data:
 
-            if from_date is not None and to_date is not None:
-                # print(WorkRequest.objects.filter(created_date__range=(from_date,to_date)).query)
-                queryset = WorkOrderActivityCompletion.objects.filter(
-                    created_date__range=(from_date, to_date))
+                from_date = self.request.data.get('from_date', None)
+                to_date = self.request.data.get('to_date', None)
+
+                if from_date is not None and to_date is not None:
+                    # print(WorkOrderActivityCompletion.objects.filter(submitted_datetime__range=(from_date,to_date)).query)
+                    queryset = WorkOrderActivityCompletion.objects.filter(submitted_datetime__range=(from_date,to_date))
 
         return queryset
 

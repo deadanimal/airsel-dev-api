@@ -110,12 +110,15 @@ class AssetLocationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
         # FROM APPLICATION/JSON THROUGH API
         if bool(self.request.data):
-            from_date = self.request.data['from_date']
-            to_date = self.request.data['to_date']
+            print("enter bool()")
+            if 'from_date' in self.request.data and 'to_date' in self.request.data:
 
-            if from_date is not None and to_date is not None:
-                # print(AssetLocation.objects.filter(created_date__range=(from_date,to_date)).query)
-                queryset = AssetLocation.objects.filter(created_date__range=(from_date,to_date))
+                from_date = self.request.data.get('from_date', None)
+                to_date = self.request.data.get('to_date', None)
+
+                if from_date is not None and to_date is not None:
+                    # print(AssetLocation.objects.filter(submitted_datetime__range=(from_date,to_date)).query)
+                    queryset = AssetLocation.objects.filter(submitted_datetime__range=(from_date,to_date))
 
         return queryset
 
@@ -206,14 +209,16 @@ class AssetViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
         # FROM APPLICATION/JSON THROUGH API
         if bool(self.request.data):
-            if 'from_date' in self.request.data and 'to_date' in self.request.data:
-                from_date = self.request.data['from_date']
-                to_date = self.request.data['to_date']
-                transaction_type_req = self.request.data['transaction_type']
+            print("enter bool()")
+            if 'from_date' in self.request.data and 'to_date' in self.request.data and 'transaction_type' in self.request.data:
+
+                from_date = self.request.data.get('from_date', None)
+                to_date = self.request.data.get('to_date', None)
+                transaction_type_req = self.request.data.get('transaction_type', None)
 
                 if from_date is not None and to_date is not None and transaction_type_req is not None:
-                    print(Asset.objects.filter(created_date__range=(from_date,to_date),transaction_type=(transaction_type_req)).query)
-                    queryset = Asset.objects.filter(created_date__range=(from_date,to_date),transaction_type=(transaction_type_req))
+                    print(Asset.objects.filter(submitted_datetime__range=(from_date,to_date),transaction_type=(transaction_type_req)).query)
+                    queryset = Asset.objects.filter(submitted_datetime__range=(from_date,to_date),transaction_type=(transaction_type_req))
 
         return queryset
     
