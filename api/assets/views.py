@@ -91,6 +91,7 @@ from .serializers import (
 #         """
 #         return queryset
 
+
 class AssetLocationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = AssetLocation.objects.all()
     serializer_class = AssetLocationSerializer
@@ -103,7 +104,6 @@ class AssetLocationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
             permission_classes = [AllowAny]
 
         return [permission() for permission in permission_classes]
-
 
     def get_queryset(self):
         queryset = AssetLocation.objects.all()
@@ -118,9 +118,24 @@ class AssetLocationViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
                 if from_date is not None and to_date is not None:
                     # print(AssetLocation.objects.filter(submitted_datetime__range=(from_date,to_date)).query)
-                    queryset = AssetLocation.objects.filter(submitted_datetime__range=(from_date,to_date))
+                    queryset = AssetLocation.objects.filter(
+                        submitted_datetime__range=(from_date, to_date))
 
         return queryset
+
+    @action(methods=['POST'], detail=False)
+    def extended_all(self, request, *args, **kwargs):
+
+        from_date = self.request.data['from_date']
+        to_date = self.request.data['to_date']
+
+        if from_date is not None and to_date is not None:
+            queryset = AssetLocation.objects.filter(
+                submitted_datetime__range=(from_date, to_date))
+
+        serializer = AssetLocationSerializer(queryset, many=True)
+        return Response(serializer.data)
+
 
 class AssetMeasurementTypeViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = AssetMeasurementType.objects.all()
@@ -134,7 +149,6 @@ class AssetMeasurementTypeViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
             permission_classes = [AllowAny]
 
         return [permission() for permission in permission_classes]
-
 
     def get_queryset(self):
         queryset = AssetMeasurementType.objects.all()
@@ -169,7 +183,6 @@ class AssetAttributeViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
         return [permission() for permission in permission_classes]
 
-
     def get_queryset(self):
         queryset = AssetAttribute.objects.all()
 
@@ -203,7 +216,6 @@ class AssetViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
         return [permission() for permission in permission_classes]
 
-
     def get_queryset(self):
         queryset = Asset.objects.all()
 
@@ -214,32 +226,40 @@ class AssetViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
                 from_date = self.request.data.get('from_date', None)
                 to_date = self.request.data.get('to_date', None)
-                transaction_type_req = self.request.data.get('transaction_type', None)
+                transaction_type_req = self.request.data.get(
+                    'transaction_type', None)
 
                 if from_date is not None and to_date is not None and transaction_type_req is not None:
-                    print(Asset.objects.filter(submitted_datetime__range=(from_date,to_date),transaction_type=(transaction_type_req)).query)
-                    queryset = Asset.objects.filter(submitted_datetime__range=(from_date,to_date),transaction_type=(transaction_type_req))
+                    print(Asset.objects.filter(submitted_datetime__range=(
+                        from_date, to_date), transaction_type=(transaction_type_req)).query)
+                    queryset = Asset.objects.filter(submitted_datetime__range=(
+                        from_date, to_date), transaction_type=(transaction_type_req))
 
         return queryset
-    
+
     @action(methods=['POST'], detail=False)
-    def extended_all(self, request, *args, **kwargs):  
+    def extended_all(self, request, *args, **kwargs):
         from_date = self.request.data['from_date']
         to_date = self.request.data['to_date']
         transaction_type = self.request.data['transaction_type']
 
-        queryset = Asset.objects.all()
+        # Note
+        # If transaction_type = ADD, filter by registered_datetime
+        # If transaction_type = UPDATE, filter by submitted_datetime
 
         if from_date is not None and to_date is not None and transaction_type is not None:
-            queryset = Asset.objects.filter(
-                modified_date__range=(from_date, to_date)).filter(transaction_type=transaction_type)
+            if transaction_type == 'ADD':
+                queryset = Asset.objects.filter(registered_datetime__range=(
+                    from_date, to_date)).filter(transaction_type=transaction_type)
+            elif transaction_type == 'UPDATE':
+                queryset = Asset.objects.filter(submitted_datetime__range=(
+                    from_date, to_date)).filter(transaction_type=transaction_type)
 
-        serializer = AssetExtendedSerializer(
-            queryset, many=True)
+        serializer = AssetExtendedSerializer(queryset, many=True)
         return Response(serializer.data)
 
     @action(methods=['GET'], detail=True)
-    def extended(self, request, *args, **kwargs):  
+    def extended(self, request, *args, **kwargs):
         asset_ = self.get_object()
 
         serializer = AssetExtendedSerializer(asset_)

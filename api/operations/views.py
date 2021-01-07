@@ -61,10 +61,23 @@ class OperationalReadingViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
                 if from_date is not None and to_date is not None:
                     # print(OperationalReading.objects.filter(submitted_datetime__range=(from_date,to_date)).query)
-                    queryset = OperationalReading.objects.filter(submitted_datetime__range=(from_date,to_date))
+                    queryset = OperationalReading.objects.filter(
+                        submitted_datetime__range=(from_date, to_date))
 
         return queryset
 
+    @action(methods=['POST'], detail=False)
+    def extended_all(self, request, *args, **kwargs):
+
+        from_date = self.request.data['from_date']
+        to_date = self.request.data['to_date']
+
+        if from_date is not None and to_date is not None:
+            queryset = OperationalReading.objects.filter(
+                submitted_datetime__range=(from_date, to_date))
+
+        serializer = OperationalReadingSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 class WorkRequestViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = WorkRequest.objects.all()
@@ -92,7 +105,8 @@ class WorkRequestViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
 
                 if from_date is not None and to_date is not None:
                     # print(WorkRequest.objects.filter(submitted_datetime__range=(from_date,to_date)).query)
-                    queryset = WorkRequest.objects.filter(submitted_datetime__range=(from_date,to_date))
+                    queryset = WorkRequest.objects.filter(
+                        submitted_datetime__range=(from_date, to_date))
 
         return queryset
 
@@ -199,7 +213,8 @@ class WorkOrderActivityCompletionViewSet(NestedViewSetMixin, viewsets.ModelViewS
 
                 if from_date is not None and to_date is not None:
                     # print(WorkOrderActivityCompletion.objects.filter(submitted_datetime__range=(from_date,to_date)).query)
-                    queryset = WorkOrderActivityCompletion.objects.filter(submitted_datetime__range=(from_date,to_date))
+                    queryset = WorkOrderActivityCompletion.objects.filter(
+                        submitted_datetime__range=(from_date, to_date))
 
         return queryset
 
