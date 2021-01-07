@@ -129,11 +129,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Kuala_Lumpur'
+TIME_ZONE = 'Greenwich'
 
 USE_I18N = True
 
-USE_L10N = True
+# DATETIME_FORMAT = '%Y-%m-%d %H:%m'
+
+USE_L10N = False
 
 USE_TZ = True
 
@@ -170,7 +172,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
 
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    'DATETIME_FORMAT': "%Y-%m-%dT%H:%M:%S%z"
 
 }
 
