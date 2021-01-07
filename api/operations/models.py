@@ -13,13 +13,13 @@ from core.helpers import PathAndRename
 class OperationalReading(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    asset_id = models.CharField(max_length=100, default='NA')
-    badge_number = models.CharField(max_length=100, default='NA')
-    current_value = models.CharField(max_length=100, default='NA')
-    measurent_identifier = models.CharField(max_length=100, default='NA')
-    measurent_type = models.CharField(max_length=100, default='NA')
-    initial_value_flag = models.CharField(max_length=100, default='NA')
-    owning_organization = models.CharField(max_length=100, default='NA')
+    asset_id = models.CharField(max_length=100, blank=True)
+    badge_number = models.CharField(max_length=100, blank=True)
+    current_value = models.CharField(max_length=100, blank=True)
+    measurent_identifier = models.CharField(max_length=100, blank=True)
+    measurent_type = models.CharField(max_length=100, blank=True)
+    initial_value_flag = models.CharField(max_length=100, blank=True)
+    owning_organization = models.CharField(max_length=100, blank=True)
     reading_datetime = models.DateTimeField(auto_now=True)
 
     submitted_datetime = models.DateTimeField(auto_now=True)
