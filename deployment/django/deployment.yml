@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: airsel-dev-api
-        image: syafiqpipe/airsel-dev-api:1.0.17
+        image: syafiqpipe/airsel-dev-api:1.0.18
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
