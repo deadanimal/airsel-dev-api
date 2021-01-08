@@ -182,8 +182,8 @@ class Asset(models.Model):
     vendor_part_no = models.CharField(max_length=100, default='NA')
     asset_attributes = models.ManyToManyField(AssetAttribute, null=True)
 
-    submitted_datetime = models.DateTimeField(default=None)
-    registered_datetime = models.DateTimeField(default=None)
+    submitted_datetime = models.DateTimeField(null=True, default=None)
+    registered_datetime = models.DateTimeField(null=True, default=None)
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
