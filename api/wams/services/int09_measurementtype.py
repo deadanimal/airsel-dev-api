@@ -11,17 +11,7 @@ import xmltodict
 
 def get_measurementtype():
 
-    payload = {
-        "token": "tLh-KkVgm8yUgA30ulJNFA",
-        "data": {
-        "name": "nameFirst",
-        "email": "internetEmail",
-        "phone": "phoneHome",
-        "_repeat": 300
-        }
-    };
-
-    r = requests.post("http://167.71.199.123:8080/getMeasurementType.php", json = payload)
+    r = requests.post("http://167.71.199.123:8080/getMeasurementType.php")
     return json.loads(r.content);
 
     # wsdl = "https://pasb-dev-uwa-iws.oracleindustry.com/ouaf/webservices/CM-MEAUSREMENTTYPE?WSDL"

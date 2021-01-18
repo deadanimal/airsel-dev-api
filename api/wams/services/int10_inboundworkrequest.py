@@ -9,22 +9,44 @@ import requests
 import xmltodict
 
 
-def get_inboundworkrequest(type):
-
-    payload = {
-        "token": "tLh-KkVgm8yUgA30ulJNFA",
-        "data": {
-        "name": "nameFirst",
-        "email": "internetEmail",
-        "phone": "phoneHome",
-        "_repeat": 300
-        }
-    };
+def get_inboundworkrequest(type, data):
 
     if type == 'create':
-        r = requests.post("http://167.71.199.123:8080/getInboundWorkRequestCreate.php", json = payload)
+
+        payload = {
+            'description': data['description'],
+            'long_description': data['long_description'],
+            'required_by_date': data['required_by_date'],
+            'approval_profile': data['approval_profile'],
+            'bo': data['bo'],
+            'creation_datetime': data['creation_datetime'],
+            'creation_user': data['creation_user'],
+            'downtime_start': data['downtime_start'],
+            'planner': data['planner'],
+            'work_class': data['work_class'],
+            'work_category': data['work_category'],
+            'work_priority': data['work_priority'],
+            'requestor': data['requestor'],
+            'owning_access_group': data['owning_access_group'],
+            'first_name': data['first_name'],
+            'last_name': data['last_name'],
+            'primary_phone': data['primary_phone'],
+            'mobile_phone': data['mobile_phone'],
+            'home_phone': data['home_phone'],
+            'node_id': data['node_id'],
+            'asset_id': data['asset_id']
+        }
+
+        r = requests.post("http://167.71.199.123:8080/getInboundWorkRequestCreate.php", data = payload)
     elif type == 'update':
-        r = requests.post("http://167.71.199.123:8080/getInboundWorkRequestUpdate.php", json = payload)
+
+        payload = {
+            'work_request_id': data['work_request_id'],
+            'approval_profile': data['approval_profile'],
+            'work_request_status': data['work_request_status']
+        }
+
+        r = requests.post("http://167.71.199.123:8080/getInboundWorkRequestUpdate.php", data = payload)
 
     return json.loads(r.content);
 

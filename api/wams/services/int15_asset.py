@@ -9,19 +9,13 @@ import requests
 import xmltodict
 
 
-def get_asset():
+def get_asset(badge_number):
 
     payload = {
-        "token": "tLh-KkVgm8yUgA30ulJNFA",
-        "data": {
-        "name": "nameFirst",
-        "email": "internetEmail",
-        "phone": "phoneHome",
-        "_repeat": 300
-        }
+        "badge_number": badge_number
     };
 
-    r = requests.post("http://167.71.199.123:8080/getAsset.php", json = payload)
+    r = requests.post("http://167.71.199.123:8080/getAsset.php", data = payload)
     return json.loads(r.content);
 
     # wsdl = "https://pasb-dev-uwa-iws.oracleindustry.com/ouaf/webservices/CM-ASSETFB?WSDL"

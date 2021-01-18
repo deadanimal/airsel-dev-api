@@ -9,19 +9,14 @@ import requests
 import xmltodict
 
 
-def get_assetsyncoutbound():
+def get_assetsyncoutbound(from_date, to_date):
 
     payload = {
-        "token": "tLh-KkVgm8yUgA30ulJNFA",
-        "data": {
-        "name": "nameFirst",
-        "email": "internetEmail",
-        "phone": "phoneHome",
-        "_repeat": 300
-        }
+        "from_date": from_date,
+        "to_date": to_date
     };
 
-    r = requests.post("http://167.71.199.123:8080/getAssetSyncOutbound.php", json = payload)
+    r = requests.post("http://167.71.199.123:8080/getAssetSyncOutbound.php", data = payload)
     return json.loads(r.content);
 
     # wsdl = "https://pasb-dev-uwa-iws.oracleindustry.com/ouaf/webservices/CM-ASSETSYNCOB?WSDL"
