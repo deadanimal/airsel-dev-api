@@ -16,7 +16,7 @@ def get_planner(from_date, to_date):
         "to_date": to_date
     };
 
-    r = requests.post("http://167.71.199.123:8080/getPlanner.php", data = payload)
+    r = requests.post("http://139.59.125.201/getPlanner.php", data = payload)
     return json.loads(r.content);
 
     # wsdl = "https://pasb-dev-uwa-iws.oracleindustry.com/ouaf/webservices/CM-PLANNER?WSDL"
