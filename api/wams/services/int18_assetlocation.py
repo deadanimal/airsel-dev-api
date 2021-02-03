@@ -16,7 +16,7 @@ def get_assetlocation(from_date, to_date):
         "to_date": to_date
     };
 
-    r = requests.post("http://167.71.199.123:8080/getAssetLocation.php", data = payload)    
+    r = requests.post("http://139.59.125.201/getAssetLocation.php", data = payload)    
 
     return json.loads(r.content);
 

@@ -15,7 +15,7 @@ def get_asset(badge_number):
         "badge_number": badge_number
     };
 
-    r = requests.post("http://167.71.199.123:8080/getAsset.php", data = payload)
+    r = requests.post("http://139.59.125.201/getAsset.php", data = payload)
     return json.loads(r.content);
 
     # wsdl = "https://pasb-dev-uwa-iws.oracleindustry.com/ouaf/webservices/CM-ASSETFB?WSDL"

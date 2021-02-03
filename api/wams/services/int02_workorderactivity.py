@@ -16,7 +16,7 @@ def get_workorderactivity(from_date, to_date):
         "to_date": to_date
     };  
 
-    r = requests.post("http://167.71.199.123:8080/getWorkOrderActivity.php", data = payload)
+    r = requests.post("http://139.59.125.201/getWorkOrderActivity.php", data = payload)
     return json.loads(r.content);
 
     # wsdl = "https://pasb-dev-uwa-iws.oracleindustry.com/ouaf/webservices/CM-WORKORDERACTIVITY?WSDL"

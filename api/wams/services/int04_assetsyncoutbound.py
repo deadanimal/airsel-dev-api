@@ -16,7 +16,7 @@ def get_assetsyncoutbound(from_date, to_date):
         "to_date": to_date
     };
 
-    r = requests.post("http://167.71.199.123:8080/getAssetSyncOutbound.php", data = payload)
+    r = requests.post("http://139.59.125.201/getAssetSyncOutbound.php", data = payload)
     return json.loads(r.content);
 
     # wsdl = "https://pasb-dev-uwa-iws.oracleindustry.com/ouaf/webservices/CM-ASSETSYNCOB?WSDL"
